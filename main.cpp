@@ -3,18 +3,18 @@
 #include <conio.h>
 
 using namespace std;
-char a[25][260];
-int x=1,y=100,x2,y2;
+char a[25][115];
+int x=1,y=50,x2,y2;
 
 void show()
 {
 	for(int i=1;i<=10;i++)
 	{
-		for(int j=1;j<=180;j++)
+		for(int j=1;j<=114;j++)
 		{
 			if(i==x&&j==y)
 			{
-				cout<<"N";
+				cout<<"0";
 				continue;
 			}
 			cout<<a[i][j];
@@ -28,24 +28,23 @@ bool game()
 {
 	int type=1;
 	char k;
-	x=1;y=100;
+	x=1;y=50;
 	show();
 	while(type==1)
 	{
 		k=getch();
-		if(k=='w') x--;
-		if(k=='s') x++;
-		if(k=='a') y--;
-		if(k=='d') y++;
+		if(k=='w'||k=='W') x--;
+		if(k=='s'||k=='S') x++;
+		if(k=='a'||k=='A') y--;
+		if(k=='d'||k=='D') y++;
 		y=min(255,y);
 		y=max(1,y);
 		x=min(10,x);
 		x=max(1,x);
 		system("cls");
 		if(a[x][y]=='*') return false;
-		if(a[x][y]=='M') return true;
+		if(a[x][y]=='E') return true;
 		show();
-		Sleep(250);
 	}
 }
 
@@ -59,7 +58,7 @@ void setmap()
 	}while(x2==x||y2==y);
 	for(int i=1;i<=20;i++)
 	{
-		for(int j=1;j<=180;j++)
+		for(int j=1;j<=114;j++)
 		{
 			if(rand()%101>=95&&(i!=x||j!=y))
 			{
@@ -69,7 +68,7 @@ void setmap()
 			a[i][j]=' ';
 		}
 	}
-	a[x2][y2]='M';
+	a[x2][y2]='E';
 	return;
 }
 
@@ -95,8 +94,16 @@ int main()
 		{
 			cout<<"You are win! You used "<<end-start<<" Seconds. Continue?(y/n)";
 		}
-		cin>>type;
-	}while(type=='y');
-	system("pause");
-	return 0;
+		do
+		{
+			type=getch();
+			if(type=='n'||type=='N')
+			{
+				cout<<"\n";
+				system("pause");
+				return 0;
+			}
+			if(type=='y'||type=='Y') break;
+		}while(1);
+	}while(1);
 }
